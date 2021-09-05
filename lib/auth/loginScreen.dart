@@ -1,5 +1,7 @@
+import 'package:ewawepay/auth/signUpScreen.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: InputDecoration(
         hintText: 'Email',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
       ),
     );
 
@@ -35,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: InputDecoration(
         hintText: 'Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
       ),
     );
     final forgotpassword = Container(
@@ -73,8 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         padding: EdgeInsets.all(12),
         color: ewawegrey,
-        child: Text('Log In',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        child: Text('Log In', style: GoogleFonts.poppins(fontSize: 12)),
       ),
     );
 
@@ -85,12 +86,12 @@ class _LoginScreenState extends State<LoginScreen> {
           Text('Don\'t have an Account? '),
           InkWell(
             onTap: () async {
-              // Navigator.push(
-              //   context,
-              //   CupertinoPageRoute(
-              //     builder: (context) => SetPhoneScreen(),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => SignUpScreen(),
+                ),
+              );
             },
             child: new Text(
               "Sign up",
