@@ -1,4 +1,5 @@
 import 'package:ewawepay/auth/signUpScreen.dart';
+import 'package:ewawepay/dashboard/dash.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       autofocus: false,
       decoration: InputDecoration(
         hintText: 'Email',
+        hintStyle: GoogleFonts.poppins(fontSize: 15),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
       ),
@@ -36,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       obscureText: true,
       decoration: InputDecoration(
         hintText: 'Password',
+        hintStyle: GoogleFonts.poppins(fontSize: 15),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
       ),
@@ -56,8 +59,9 @@ class _LoginScreenState extends State<LoginScreen> {
               // );
             },
             child: new Text(
-              "Forgot password",
-              style: TextStyle(color: ewawegreen, fontWeight: FontWeight.bold),
+              "Forgot password ?",
+              style: GoogleFonts.poppins(
+                  color: ewawegreen, fontWeight: FontWeight.normal),
             ),
           ),
         ],
@@ -68,14 +72,22 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: EdgeInsets.symmetric(vertical: 19.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(18),
         ),
         onPressed: () {
           // Navigator.of(context).pushNamed(HomePage.tag);
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (BuildContext context) => DashboardScreen()),
+              (Route<dynamic> route) => false);
         },
         padding: EdgeInsets.all(12),
         color: ewawegrey,
-        child: Text('Log In', style: GoogleFonts.poppins(fontSize: 12)),
+        child: Text('LOG IN',
+            style: GoogleFonts.poppins(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.w500)),
       ),
     );
 
@@ -83,7 +95,10 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Don\'t have an Account? '),
+          Text(
+            'Don\'t have an Account? ',
+            style: GoogleFonts.poppins(fontWeight: FontWeight.normal),
+          ),
           InkWell(
             onTap: () async {
               Navigator.push(
@@ -95,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             child: new Text(
               "Sign up",
-              style: TextStyle(color: ewawegreen),
+              style: GoogleFonts.poppins(color: ewawegreen),
             ),
           ),
         ],
