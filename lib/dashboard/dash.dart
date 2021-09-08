@@ -18,9 +18,11 @@ class _DashScreenState extends State<DashboardScreen> {
         backgroundColor: ewawegrey,
         elevation: 0.0,
         centerTitle: false,
-        title: Text('EwawePay',
-            style: GoogleFonts.poppins(
-                color: ewawegreen, fontSize: 20, fontWeight: FontWeight.w700)),
+        title: Image.asset(
+          'assets/images/ewawelogowhite.png',
+          fit: BoxFit.contain,
+          height: 63,
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.notifications_none, color: Colors.white),
