@@ -11,7 +11,11 @@ class PayScreen extends StatefulWidget {
 
 class _PayScreenState extends State<PayScreen> {
   get round => false;
-
+  DropdownMenuItem<String> buildItem(String item) => DropdownMenuItem(
+        value: item,
+        child: Text(item),
+      );
+  List listItem = ['M&M', 'CHIC', 'MIC', 'NY MARKET', 'TOWN TOWER'];
   @override
   Widget build(BuildContext context) {
     final landlordID = TextFormField(
@@ -24,16 +28,21 @@ class _PayScreenState extends State<PayScreen> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
       ),
     );
-    final propertyName = TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      decoration: InputDecoration(
-        hintText: 'Property Name',
-        hintStyle: GoogleFonts.poppins(fontSize: 15),
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-      ),
+
+    final propertyName = Container(
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey, width: 1),
+          borderRadius: BorderRadius.circular(10)),
+      padding: EdgeInsets.only(left: 15),
+      child: DropdownButton<String>(
+          hint: Text('Property Name'),
+          dropdownColor: Colors.grey,
+          icon: Icon(Icons.arrow_drop_down),
+          isExpanded: true,
+          style: GoogleFonts.poppins(color: Colors.black, fontSize: 15),
+          items: []),
     );
+
     final amountPay = TextFormField(
       keyboardType: TextInputType.text,
       autofocus: false,
@@ -44,15 +53,18 @@ class _PayScreenState extends State<PayScreen> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
       ),
     );
-    final currency = TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      decoration: InputDecoration(
-        hintText: 'Currency',
-        hintStyle: GoogleFonts.poppins(fontSize: 15),
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-      ),
+    final currency = Container(
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey, width: 1),
+          borderRadius: BorderRadius.circular(10)),
+      padding: EdgeInsets.only(left: 15),
+      child: DropdownButton<String>(
+          hint: Text('Currency'),
+          dropdownColor: Colors.grey,
+          icon: Icon(Icons.arrow_drop_down),
+          isExpanded: true,
+          style: GoogleFonts.poppins(color: Colors.black, fontSize: 15),
+          items: []),
     );
     final proceedButton = Container(
       height: 50,

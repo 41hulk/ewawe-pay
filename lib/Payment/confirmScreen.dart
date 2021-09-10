@@ -1,3 +1,4 @@
+import 'package:ewawepay/Payment/checkoutScreen.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,14 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
       margin: EdgeInsets.all(25),
       child: ElevatedButton(
         child: Text('PROCEED'),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => CheckoutScreen(),
+            ),
+          );
+        },
         style: ElevatedButton.styleFrom(
             primary: ewawegrey,
             shape: RoundedRectangleBorder(
@@ -36,7 +44,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
         elevation: 0.0,
         centerTitle: true,
         title: Text(
-          'Pay Rent',
+          'Rent Pay',
           style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
         ),
       ),

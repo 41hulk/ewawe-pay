@@ -21,7 +21,7 @@ class _DashScreenState extends State<DashboardScreen> {
         title: Image.asset(
           'assets/images/ewawelogowhite.png',
           fit: BoxFit.contain,
-          height: 63,
+          height: 50,
         ),
         actions: <Widget>[
           IconButton(
@@ -71,7 +71,7 @@ class _DashScreenState extends State<DashboardScreen> {
             padding: EdgeInsets.only(
               left: 30,
               right: 30,
-              top: 30,
+              top: 50,
             ),
             child: GridView.count(
               crossAxisCount: 2,
@@ -83,55 +83,55 @@ class _DashScreenState extends State<DashboardScreen> {
                   "Properties",
                   "House",
                   () {},
-                  "assets/images/ewawelogo.png",
+                  "assets/images/ewawelogowhite.png",
                 ),
                 _buildCard(
-                  "Properties",
+                  "Tenant",
                   "House",
                   () {},
-                  "assets/images/ewawelogo.png",
+                  "assets/images/ewawelogowhite.png",
                 ),
                 _buildCard(
-                  "Properties",
+                  "Service",
                   "House",
                   () {},
-                  "assets/images/ewawelogo.png",
+                  "assets/images/ewawelogowhite.png",
                 ),
                 _buildCard(
-                  "Properties",
+                  "Morgage",
                   "House",
                   () {},
-                  "assets/images/ewawelogo.png",
+                  "assets/images/ewawelogowhite.png",
                 ),
                 _buildCard(
-                  "Properties",
+                  "Rent Pay",
                   "House",
-                  () {},
-                  "assets/images/ewawelogo.png",
+                  PayScreen(),
+                  "assets/images/ewawelogowhite.png",
                 ),
                 _buildCard(
-                  "Properties",
+                  "Payment History",
                   "House",
                   () {},
-                  "assets/images/ewawelogo.png",
+                  "assets/images/ewawelogowhite.png",
                 ),
               ],
             ),
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return PayScreen();
-              }),
-            );
-          },
-          backgroundColor: ewawegreen,
-          child: Icon(Icons.payments)),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: FloatingActionButton(
+      //     onPressed: () {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (context) {
+      //           return PayScreen();
+      //         }),
+      //       );
+      //     },
+      //     backgroundColor: ewawegreen,
+      //     child: Icon(Icons.payments)),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // bottomNavigationBar: BottomBar(),
     );
   }
@@ -151,7 +151,7 @@ class _DashScreenState extends State<DashboardScreen> {
               boxShadow: [
                 BoxShadow(color: Colors.black, spreadRadius: 3.0, blurRadius: 7)
               ],
-              color: ewawegreen),
+              color: Colors.green[400]),
           child: Material(
             color: Colors.transparent,
             child: InkWell(
