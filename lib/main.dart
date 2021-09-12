@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:ewawepay/auth/loginScreen.dart';
+import 'package:ewawepay/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: ewawegrey,
         ),
         home: AnimatedSplashScreen(
             duration: 3000,

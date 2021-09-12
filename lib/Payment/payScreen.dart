@@ -100,13 +100,14 @@ class _PayScreenState extends State<PayScreen> {
           style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Column(
+      body: ListView(
         children: <Widget>[
           SizedBox(
             height: 10,
           ),
           Container(
-            height: MediaQuery.of(context).size.height - 114.0,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(

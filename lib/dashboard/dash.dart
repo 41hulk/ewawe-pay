@@ -13,7 +13,6 @@ class _DashScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ewawegrey,
       appBar: AppBar(
         backgroundColor: ewawegrey,
         elevation: 0.0,
@@ -37,7 +36,8 @@ class _DashScreenState extends State<DashboardScreen> {
       body: ListView(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(left: 18.0, top: 10),
+            padding: EdgeInsets.only(left: 18.0, top: 10, bottom: 12),
+            margin: EdgeInsets.only(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -57,11 +57,9 @@ class _DashScreenState extends State<DashboardScreen> {
               ],
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
           Container(
-            height: MediaQuery.of(context).size.height - 150.0,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -74,6 +72,7 @@ class _DashScreenState extends State<DashboardScreen> {
               top: 50,
             ),
             child: GridView.count(
+              physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               childAspectRatio: 1,
               crossAxisSpacing: 30,

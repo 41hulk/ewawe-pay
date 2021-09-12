@@ -40,46 +40,27 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height - 104.0,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
-        ),
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20,
-          top: 50,
-        ),
-        child: GridView.count(
-          crossAxisCount: 4,
-          childAspectRatio: 1,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 4,
-          children: <Widget>[
-            _buildCard(
-              () {},
-              "assets/images/ewawelogo.png",
+      body: ListView(
+        children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(45.0),
+                  topRight: Radius.circular(45.0)),
             ),
-            _buildCard(
-              () {},
-              "assets/images/ewawelogo.png",
+            padding: EdgeInsets.only(
+              left: 20,
+              right: 20,
+              top: 50,
             ),
-            _buildCard(
-              () {},
-              "assets/images/ewawelogo.png",
+            child: Column(
+              children: [],
             ),
-            _buildCard(
-              () {},
-              "assets/images/ewawelogo.png",
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            // _masteCard(),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
