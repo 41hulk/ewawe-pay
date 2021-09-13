@@ -38,7 +38,6 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
     );
 
     return Scaffold(
-      backgroundColor: ewawegrey,
       appBar: AppBar(
         backgroundColor: ewawegrey,
         elevation: 0.0,

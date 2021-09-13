@@ -36,7 +36,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         elevation: 0.0,
         centerTitle: true,
         title: Text(
-          'Rent Pay',
+          'Payment Method',
           style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
         ),
       ),
@@ -52,63 +52,47 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   topRight: Radius.circular(45.0)),
             ),
             padding: EdgeInsets.only(
-              left: 20,
-              right: 20,
+              left: 30,
+              right: 30,
               top: 50,
             ),
-            child: Column(
-              children: [],
+            child: GridView.count(
+              physics: NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              childAspectRatio: 1,
+              crossAxisSpacing: 30,
+              mainAxisSpacing: 20,
+              children: <Widget>[
+                _buildCard(
+                  () {},
+                  "assets/images/mtn.png",
+                ),
+                _buildCard(
+                  () {},
+                  "assets/images/airtel.png",
+                ),
+                _buildCard(
+                  () {},
+                  "assets/images/visa.png",
+                ),
+                _buildCard(
+                  () {},
+                  "assets/images/mastercard.png",
+                ),
+                _buildCard(
+                  () {},
+                  "assets/images/paypal.png",
+                ),
+              ],
             ),
-          ),
+          )
         ],
       ),
     );
   }
 
   Widget _masteCard() {
-    final cardNumber = TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      decoration: InputDecoration(
-        hintText: 'Amount Pay',
-        hintStyle: GoogleFonts.poppins(fontSize: 15),
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-      ),
-    );
-    final holderName = TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      decoration: InputDecoration(
-        hintText: 'Amount Pay',
-        hintStyle: GoogleFonts.poppins(fontSize: 15),
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-      ),
-    );
-    final exDate = TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      decoration: InputDecoration(
-        hintText: 'Amount Pay',
-        hintStyle: GoogleFonts.poppins(fontSize: 15),
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-      ),
-    );
-    final cVV = TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      decoration: InputDecoration(
-        hintText: 'Amount Pay',
-        hintStyle: GoogleFonts.poppins(fontSize: 15),
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-      ),
-    );
-    return Column(
-      children: [cardNumber, holderName, exDate, cVV],
-    );
+    return Container();
   }
 
   Widget _buildCard(
@@ -142,14 +126,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   children: <Widget>[
                     Spacer(),
                     Hero(
-                        tag: imgPath,
-                        child: Container(
-                            height: 45.0,
-                            width: 45.0,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(imgPath),
-                                    fit: BoxFit.contain)))),
+                      tag: imgPath,
+                      child: Container(
+                        height: 90,
+                        width: 90.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(imgPath),
+                              fit: BoxFit.fitHeight),
+                        ),
+                      ),
+                    ),
                     Spacer(),
                   ],
                 ),

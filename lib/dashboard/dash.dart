@@ -1,4 +1,5 @@
 import 'package:ewawepay/Payment/payScreen.dart';
+import 'package:ewawepay/Payment/paymentHistoryScreen.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +112,7 @@ class _DashScreenState extends State<DashboardScreen> {
                 _buildCard(
                   "Payment History",
                   "House",
-                  () {},
+                  PaymentHistoryScreen(),
                   "assets/images/ewawelogowhite.png",
                 ),
               ],
