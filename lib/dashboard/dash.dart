@@ -1,4 +1,7 @@
 import 'package:ewawepay/Payment/payScreen.dart';
+import 'package:ewawepay/Payment/paymentHistoryScreen.dart';
+import 'package:ewawepay/Profile/profileScreen.dart';
+import 'package:ewawepay/dashboard/error.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,14 +16,15 @@ class _DashScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ewawegrey,
       appBar: AppBar(
         backgroundColor: ewawegrey,
         elevation: 0.0,
         centerTitle: false,
-        title: Text('EwawePay',
-            style: GoogleFonts.poppins(
-                color: ewawegreen, fontSize: 20, fontWeight: FontWeight.w700)),
+        title: Image.asset(
+          'assets/images/ewawelogowhite.png',
+          fit: BoxFit.contain,
+          height: 50,
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.notifications_none, color: Colors.white),
@@ -28,14 +32,23 @@ class _DashScreenState extends State<DashboardScreen> {
           ),
           IconButton(
             icon: Icon(Icons.account_circle, color: Colors.white),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => UserProfileScreen(),
+                ),
+              );
+            },
           ),
         ],
       ),
       body: ListView(
+        physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(left: 18.0, top: 10),
+            padding: EdgeInsets.only(left: 18.0, top: 10, bottom: 12),
+            margin: EdgeInsets.only(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -55,11 +68,9 @@ class _DashScreenState extends State<DashboardScreen> {
               ],
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
           Container(
-            height: MediaQuery.of(context).size.height - 150.0,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -69,9 +80,10 @@ class _DashScreenState extends State<DashboardScreen> {
             padding: EdgeInsets.only(
               left: 30,
               right: 30,
-              top: 30,
+              top: 20,
             ),
             child: GridView.count(
+              physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               childAspectRatio: 1,
               crossAxisSpacing: 30,
@@ -80,56 +92,56 @@ class _DashScreenState extends State<DashboardScreen> {
                 _buildCard(
                   "Properties",
                   "House",
-                  () {},
-                  "assets/images/ewawelogo.png",
+                  ErrorScreen(),
+                  "assets/images/building.png",
                 ),
                 _buildCard(
-                  "Properties",
+                  "Tenant",
                   "House",
-                  () {},
-                  "assets/images/ewawelogo.png",
+                  ErrorScreen(),
+                  "assets/images/tenant.png",
                 ),
                 _buildCard(
-                  "Properties",
+                  "Service",
                   "House",
-                  () {},
-                  "assets/images/ewawelogo.png",
+                  ErrorScreen(),
+                  "assets/images/vehicle.png",
                 ),
                 _buildCard(
-                  "Properties",
+                  "Mortgage",
                   "House",
-                  () {},
-                  "assets/images/ewawelogo.png",
+                  ErrorScreen(),
+                  "assets/images/mortgage-loan.png",
                 ),
                 _buildCard(
-                  "Properties",
+                  "Rent Pay",
                   "House",
-                  () {},
-                  "assets/images/ewawelogo.png",
+                  PayScreen(),
+                  "assets/images/cashless-payment.png",
                 ),
                 _buildCard(
-                  "Properties",
+                  "Payment History",
                   "House",
-                  () {},
-                  "assets/images/ewawelogo.png",
+                  PaymentHistoryScreen(),
+                  "assets/images/receipt.png",
                 ),
               ],
             ),
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return PayScreen();
-              }),
-            );
-          },
-          backgroundColor: ewawegreen,
-          child: Icon(Icons.payments)),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: FloatingActionButton(
+      //     onPressed: () {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (context) {
+      //           return PayScreen();
+      //         }),
+      //       );
+      //     },
+      //     backgroundColor: ewawegreen,
+      //     child: Icon(Icons.payments)),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // bottomNavigationBar: BottomBar(),
     );
   }
@@ -149,7 +161,7 @@ class _DashScreenState extends State<DashboardScreen> {
               boxShadow: [
                 BoxShadow(color: Colors.black, spreadRadius: 3.0, blurRadius: 7)
               ],
-              color: ewawegreen),
+              color: Colors.green[400]),
           child: Material(
             color: Colors.transparent,
             child: InkWell(
@@ -169,8 +181,8 @@ class _DashScreenState extends State<DashboardScreen> {
                     Hero(
                         tag: imgPath,
                         child: Container(
-                            height: 75.0,
-                            width: 75.0,
+                            height: 65.0,
+                            width: 65.0,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: AssetImage(imgPath),
