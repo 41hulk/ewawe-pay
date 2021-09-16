@@ -1,6 +1,7 @@
 import 'package:ewawepay/Payment/payScreen.dart';
 import 'package:ewawepay/Payment/paymentHistoryScreen.dart';
 import 'package:ewawepay/Profile/profileScreen.dart';
+import 'package:ewawepay/dashboard/error.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,7 @@ class _DashScreenState extends State<DashboardScreen> {
         ],
       ),
       body: ListView(
+        physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(left: 18.0, top: 10, bottom: 12),
@@ -78,7 +80,7 @@ class _DashScreenState extends State<DashboardScreen> {
             padding: EdgeInsets.only(
               left: 30,
               right: 30,
-              top: 50,
+              top: 20,
             ),
             child: GridView.count(
               physics: NeverScrollableScrollPhysics(),
@@ -90,38 +92,38 @@ class _DashScreenState extends State<DashboardScreen> {
                 _buildCard(
                   "Properties",
                   "House",
-                  () {},
-                  "assets/images/ewawelogowhite.png",
+                  ErrorScreen(),
+                  "assets/images/building.png",
                 ),
                 _buildCard(
                   "Tenant",
                   "House",
-                  () {},
-                  "assets/images/ewawelogowhite.png",
+                  ErrorScreen(),
+                  "assets/images/tenant.png",
                 ),
                 _buildCard(
                   "Service",
                   "House",
-                  () {},
-                  "assets/images/ewawelogowhite.png",
+                  ErrorScreen(),
+                  "assets/images/vehicle.png",
                 ),
                 _buildCard(
-                  "Morgage",
+                  "Mortgage",
                   "House",
-                  () {},
-                  "assets/images/ewawelogowhite.png",
+                  ErrorScreen(),
+                  "assets/images/mortgage-loan.png",
                 ),
                 _buildCard(
                   "Rent Pay",
                   "House",
                   PayScreen(),
-                  "assets/images/ewawelogowhite.png",
+                  "assets/images/cashless-payment.png",
                 ),
                 _buildCard(
                   "Payment History",
                   "House",
                   PaymentHistoryScreen(),
-                  "assets/images/ewawelogowhite.png",
+                  "assets/images/receipt.png",
                 ),
               ],
             ),
@@ -179,8 +181,8 @@ class _DashScreenState extends State<DashboardScreen> {
                     Hero(
                         tag: imgPath,
                         child: Container(
-                            height: 75.0,
-                            width: 75.0,
+                            height: 65.0,
+                            width: 65.0,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: AssetImage(imgPath),

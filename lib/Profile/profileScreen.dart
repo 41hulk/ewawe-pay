@@ -39,7 +39,7 @@ class _UserProfilecreenState extends State<UserProfileScreen> {
                 _infocard('TenantID:', 'EWAWE-G342'),
                 _infocard('Building:', 'M&M Building'),
                 _infocard('Floor:', '2nd Floor'),
-                SizedBox(height: 80),
+                SizedBox(height: 30),
                 _logout()
               ],
             ),
@@ -102,9 +102,11 @@ class _UserProfilecreenState extends State<UserProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(label,
-                  style: GoogleFonts.poppins(
-                      fontSize: 15, fontWeight: FontWeight.bold)),
+              Text(
+                label,
+                style: GoogleFonts.poppins(
+                    fontSize: 15, fontWeight: FontWeight.bold),
+              ),
             ],
           ),
           Column(

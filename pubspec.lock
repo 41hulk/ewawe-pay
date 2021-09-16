@@ -78,6 +78,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
+  credit_card_input_form:
+    dependency: "direct main"
+    description:
+      name: credit_card_input_form
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.0"
   crypto:
     dependency: transitive
     description:
@@ -113,6 +120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
+  flip_card:
+    dependency: transitive
+    description:
+      name: flip_card
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -207,6 +221,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   page_transition:
     dependency: transitive
     description:
@@ -305,6 +326,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.3"
+  provider:
+    dependency: transitive
+    description:
+      name: provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.0"
   rxdart:
     dependency: transitive
     description:

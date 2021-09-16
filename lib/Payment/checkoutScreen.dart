@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:credit_card_input_form/credit_card_input_form.dart';
 
 class CheckoutScreen extends StatefulWidget {
   @override
@@ -79,7 +80,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ),
                     ),
                   ),
-                  onPressed: () => _mastercard(),
+                  onPressed: () => _mobile(),
                   style: ElevatedButton.styleFrom(
                       primary: Colors.grey[350],
                       shape: RoundedRectangleBorder(
@@ -103,7 +104,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ),
                     ),
                   ),
-                  onPressed: () => _mastercard(),
+                  onPressed: () => _mobile(),
                   style: ElevatedButton.styleFrom(
                       primary: Colors.grey[350],
                       shape: RoundedRectangleBorder(
@@ -127,7 +128,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ),
                     ),
                   ),
-                  onPressed: () => _mastercard(),
+                  onPressed: () => _creditCard(),
                   style: ElevatedButton.styleFrom(
                       primary: Colors.grey[350],
                       shape: RoundedRectangleBorder(
@@ -146,36 +147,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       width: 900.0,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage("assets/images/momo.png"),
+                            image: AssetImage("assets/images/mastercard.png"),
                             fit: BoxFit.contain),
                       ),
                     ),
                   ),
-                  onPressed: () => _mastercard(),
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.grey[350],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      // padding:
-                      //     EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                      textStyle: TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.normal)),
-                ),
-                ElevatedButton(
-                  child: Hero(
-                    tag: "assets/images/visa.png",
-                    child: Container(
-                      height: 920,
-                      width: 900.0,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/visa.png"),
-                            fit: BoxFit.contain),
-                      ),
-                    ),
-                  ),
-                  onPressed: () => _mastercard(),
+                  onPressed: () => _creditCard(),
                   style: ElevatedButton.styleFrom(
                       primary: Colors.grey[350],
                       shape: RoundedRectangleBorder(
@@ -194,7 +171,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
-  void _mastercard() {
+  void _mobile() {
     showCupertinoModalBottomSheet(
         context: context,
         builder: (BuildContext builder) {
@@ -205,22 +182,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
                         margin: EdgeInsets.only(top: 24),
-                        padding: EdgeInsets.only(right: 80, left: 15),
+                        padding: EdgeInsets.only(right: 10, left: 10),
                         child: Text(
-                          'Add Tenant Phone Number',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontFamily: productSans,
-                              fontWeight: FontWeight.bold),
+                          'Mobile Money',
+                          style: GoogleFonts.poppins(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
                       // SizedBox(height: 20),
                       Container(
-                        margin: EdgeInsets.only(top: 20, left: 10),
+                        margin: EdgeInsets.only(top: 20, left: 20),
                         child: ArgonButton(
                           height: 40,
                           roundLoadingShape: true,
@@ -237,7 +212,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             // }
                           },
                           child: Text(
-                            "Add",
+                            "Pay",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -251,49 +226,34 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             ),
                           ),
                           borderRadius: 5.0,
-                          color: red,
+                          color: ewawegrey,
                         ),
                       )
                     ],
                   ),
                   SizedBox(height: 20),
-                  Row(
+                  Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(
-                          left: 10,
-                        ),
-                        child: Icon(
-                          Icons.phone,
-                          color: Colors.black,
+                        padding: EdgeInsets.all(50),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(4),
+                              hintMaxLines: 1,
+                              hintText: "Mobile Number",
+                              filled: true,
+                              fillColor: Colors.grey[00],
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8))),
                         ),
                       ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Container(
-                        child: Expanded(
-                          child: TextField(
-                            // controller: myController,
-
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(4),
-                                hintMaxLines: 1,
-                                hintText: "Enter Phone Number",
-                                filled: true,
-                                fillColor: lightGrey,
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                    borderRadius: BorderRadius.circular(8)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                    borderRadius: BorderRadius.circular(8))),
-                          ),
-                        ),
-                      )
                     ],
                   ),
                   SizedBox(height: 20),
@@ -304,48 +264,173 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         });
   }
 
-  Widget _buildCard(
-    dynamic screen,
-    String imgPath,
-  ) {
-    return Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(39.0),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.0),
-              boxShadow: [
-                BoxShadow(color: Colors.black, spreadRadius: 3.0, blurRadius: 7)
-              ],
-              color: Colors.grey[350]),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: () => screen,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: <Widget>[
-                    Spacer(),
-                    Hero(
-                      tag: imgPath,
-                      child: Container(
-                        height: 120,
-                        width: 100.0,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(imgPath), fit: BoxFit.contain),
+  void _creditCard() {
+    showCupertinoModalBottomSheet(
+        context: context,
+        builder: (BuildContext builder) {
+          return Material(
+            child: Container(
+              height: 500,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 24),
+                        padding: EdgeInsets.only(right: 10, left: 10),
+                        child: Text(
+                          'Payment Card',
+                          style: GoogleFonts.poppins(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
+                      // SizedBox(height: 20),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(10),
+                              hintMaxLines: 1,
+                              hintText: "Card number",
+                              hintStyle: GoogleFonts.poppins(fontSize: 15),
+                              filled: true,
+                              fillColor: Colors.grey[300],
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8))),
+                        ),
+                        SizedBox(height: 14),
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(10),
+                              hintMaxLines: 1,
+                              hintText: "MM/YY",
+                              hintStyle: GoogleFonts.poppins(fontSize: 15),
+                              filled: true,
+                              fillColor: Colors.grey[300],
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8))),
+                        ),
+                        SizedBox(height: 14),
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(10),
+                              hintMaxLines: 1,
+                              hintText: "Security Code",
+                              hintStyle: GoogleFonts.poppins(fontSize: 15),
+                              filled: true,
+                              fillColor: Colors.grey[300],
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8))),
+                        ),
+                        SizedBox(height: 14),
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(10),
+                              hintMaxLines: 1,
+                              hintText: "First Name",
+                              hintStyle: GoogleFonts.poppins(fontSize: 15),
+                              filled: true,
+                              fillColor: Colors.grey[300],
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8))),
+                        ),
+                        SizedBox(height: 14),
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(10),
+                              hintMaxLines: 1,
+                              hintText: "Last Name",
+                              hintStyle: GoogleFonts.poppins(fontSize: 15),
+                              filled: true,
+                              fillColor: Colors.grey[300],
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8))),
+                        ),
+                        SizedBox(height: 12),
+                      ],
                     ),
-                    Spacer(),
-                  ],
-                ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20, left: 20),
+                    child: ArgonButton(
+                      height: 40,
+                      roundLoadingShape: true,
+                      width: 100,
+                      onTap: (startLoading, stopLoading, btnState) async {
+                        // if (btnState == ButtonState.Idle) {
+                        //   startLoading();
+                        //   var add = await addTenant();
+                        //   await Future.delayed(Duration(seconds: 5));
+                        //   if (add != null) {
+                        //     stopLoading();
+                        //     Navigator.pop(context);
+                        //   }
+                        // }
+                      },
+                      child: Text("Pay",
+                          style: GoogleFonts.poppins(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white)),
+                      loader: Container(
+                        padding: EdgeInsets.all(10),
+                        child: SpinKitRotatingCircle(
+                          color: Colors.white,
+                          // size: loaderWidth ,
+                        ),
+                      ),
+                      borderRadius: 5.0,
+                      color: ewawegrey,
+                    ),
+                  )
+                ],
               ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
+        });
   }
 }
