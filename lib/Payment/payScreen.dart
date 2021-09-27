@@ -90,9 +90,9 @@ class _PayScreenState extends State<PayScreen> {
     );
 
     return Scaffold(
-      backgroundColor: ewawegrey,
+      backgroundColor: ewawegreen,
       appBar: AppBar(
-        backgroundColor: ewawegrey,
+        backgroundColor: ewawegreen,
         elevation: 0.0,
         centerTitle: true,
         title: Text(

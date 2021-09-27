@@ -1,11 +1,11 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:ewawepay/Payment/pass.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:credit_card_input_form/credit_card_input_form.dart';
 
 class CheckoutScreen extends StatefulWidget {
   @override
@@ -17,26 +17,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final confirmButton = Container(
-      height: 50,
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.all(25),
-      child: ElevatedButton(
-        child: Text('CHECKOUT'),
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-            primary: ewawegrey,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular((this.round) ? 45 : 7),
-            ),
-            textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
-      ),
-    );
-
     return Scaffold(
-      backgroundColor: ewawegrey,
+      backgroundColor: ewawegreen,
       appBar: AppBar(
-        backgroundColor: ewawegrey,
+        backgroundColor: ewawegreen,
         elevation: 0.0,
         centerTitle: true,
         title: Text(
@@ -82,7 +66,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                   onPressed: () => _mobile(),
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.grey[350],
+                      primary: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
@@ -106,7 +90,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                   onPressed: () => _mobile(),
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.grey[350],
+                      primary: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
@@ -130,7 +114,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                   onPressed: () => _creditCard(),
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.grey[350],
+                      primary: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
@@ -154,7 +138,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                   onPressed: () => _creditCard(),
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.grey[350],
+                      primary: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
@@ -203,12 +187,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           onTap: (startLoading, stopLoading, btnState) async {
                             // if (btnState == ButtonState.Idle) {
                             //   startLoading();
-                            //   var add = await addTenant();
+
                             //   await Future.delayed(Duration(seconds: 5));
-                            //   if (add != null) {
-                            //     stopLoading();
-                            //     Navigator.pop(context);
-                            //   }
+                            //   Navigator.push(
+                            //     context,
+                            //     CupertinoPageRoute(
+                            //       builder: (context) => PassScreen(),
+                            //     ),
+                            //   );
                             // }
                           },
                           child: Text(
@@ -432,5 +418,30 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
           );
         });
+  }
+
+  Widget _grid(String imgPath, void modal) {
+    return ElevatedButton(
+      child: Hero(
+        tag: "assets/images/mastercard.png",
+        child: Container(
+          height: 920,
+          width: 900.0,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(imgPath), fit: BoxFit.contain),
+          ),
+        ),
+      ),
+      onPressed: () => modal,
+      style: ElevatedButton.styleFrom(
+          primary: Colors.grey[350],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40),
+          ),
+          // padding:
+          //     EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.normal)),
+    );
   }
 }

@@ -118,11 +118,18 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ewawegreen,
       body: Center(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Container(
+            height: 600,
+            margin: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+                color: Colors.white,
+
+                // Make rounded corners
+                borderRadius: BorderRadius.circular(30)),
             padding: EdgeInsets.only(
               left: 20,
               right: 20,

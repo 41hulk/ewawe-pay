@@ -12,7 +12,7 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ewawegrey,
+        backgroundColor: ewawegreen,
         elevation: 0.0,
         centerTitle: true,
         title: Text(

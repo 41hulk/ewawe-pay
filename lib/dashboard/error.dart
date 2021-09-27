@@ -1,5 +1,3 @@
-import 'package:ewawepay/dashboard/dash.dart';
-import 'package:ewawepay/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -46,39 +44,6 @@ class _ErrorscreenState extends State<ErrorScreen> {
                   style: GoogleFonts.poppins(
                       fontSize: 15, fontWeight: FontWeight.normal)),
             ),
-            // Container(
-            //     padding: EdgeInsets.only(top: 30, left: 100, right: 100),
-            //     child: TextButton(
-            //       style: TextButton.styleFrom(
-            //         backgroundColor: red,
-            //       ),
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.center,
-            //         crossAxisAlignment: CrossAxisAlignment.center,
-            //         children: [
-            //           Icon(
-            //             Icons.home_outlined,
-            //             color: Colors.white,
-            //           ),
-            //           SizedBox(
-            //             width: 10,
-            //           ),
-            //           Text('Go Home',
-            //               style: GoogleFonts.poppins(
-            //                   fontSize: 15,
-            //                   fontWeight: FontWeight.normal,
-            //                   color: Colors.white))
-            //         ],
-            //       ),
-            //       onPressed: () {
-            //         Navigator.push(
-            //           context,
-            //           MaterialPageRoute(
-            //             builder: (context) => DashboardScreen(),
-            //           ),
-            //         );
-            //       },
-            //     )),
             Container(
               padding: EdgeInsets.only(top: 30),
               child: Container(

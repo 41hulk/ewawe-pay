@@ -14,18 +14,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Ewawe Pay',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          scaffoldBackgroundColor: ewawegrey,
-        ),
-        home: AnimatedSplashScreen(
-            duration: 3000,
-            splashIconSize: 300,
-            splashTransition: SplashTransition.fadeTransition,
-            backgroundColor: Colors.white,
-            splash: Image.asset('assets/images/ewawelogo.png'),
-            nextScreen: LoginScreen()));
+      title: 'Ewawe Pay',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: ewawegreen,
+      ),
+      home: AnimatedSplashScreen(
+        duration: 3000,
+        splashIconSize: 300,
+        splashTransition: SplashTransition.fadeTransition,
+        backgroundColor: Colors.white,
+        splash: Image.asset('assets/images/ewawelogo.png'),
+        nextScreen: LoginScreen(),
+      ),
+    );
   }
 }

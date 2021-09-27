@@ -17,7 +17,7 @@ class _DashScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ewawegrey,
+        backgroundColor: ewawegreen,
         elevation: 0.0,
         centerTitle: false,
         title: Image.asset(
@@ -49,10 +49,11 @@ class _DashScreenState extends State<DashboardScreen> {
           Container(
             padding: EdgeInsets.only(left: 18.0, top: 10, bottom: 12),
             margin: EdgeInsets.only(),
+            color: ewawegreen,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Hi, Patrick!',
+                Text('Hi, User!',
                     style: GoogleFonts.poppins(
                         color: Colors.white,
                         fontSize: 30,
@@ -74,56 +75,57 @@ class _DashScreenState extends State<DashboardScreen> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(45.0),
-                  topRight: Radius.circular(45.0)),
+                topLeft: Radius.circular(45.0),
+                topRight: Radius.circular(45.0),
+              ),
             ),
-            padding: EdgeInsets.only(
-              left: 30,
-              right: 30,
-              top: 20,
-            ),
+            // padding: EdgeInsets.only(
+            //   left: 30,
+            //   right: 30,
+            //   top: 20,
+            // ),
             child: GridView.count(
               physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               childAspectRatio: 1,
-              crossAxisSpacing: 30,
-              mainAxisSpacing: 20,
+              crossAxisSpacing: 0,
+              mainAxisSpacing: 0,
               children: <Widget>[
                 _buildCard(
                   "Properties",
                   "House",
                   ErrorScreen(),
-                  "assets/images/building.png",
+                  "assets/images/property.png",
                 ),
                 _buildCard(
                   "Tenant",
                   "House",
                   ErrorScreen(),
-                  "assets/images/tenant.png",
+                  "assets/images/ten.png",
                 ),
                 _buildCard(
                   "Service",
                   "House",
                   ErrorScreen(),
-                  "assets/images/vehicle.png",
+                  "assets/images/service.png",
                 ),
                 _buildCard(
                   "Mortgage",
                   "House",
                   ErrorScreen(),
-                  "assets/images/mortgage-loan.png",
+                  "assets/images/mortgage.png",
                 ),
                 _buildCard(
                   "Rent Pay",
                   "House",
                   PayScreen(),
-                  "assets/images/cashless-payment.png",
+                  "assets/images/pay.png",
                 ),
                 _buildCard(
                   "Payment History",
                   "House",
                   PaymentHistoryScreen(),
-                  "assets/images/receipt.png",
+                  "assets/images/trans.png",
                 ),
               ],
             ),
@@ -154,14 +156,20 @@ class _DashScreenState extends State<DashboardScreen> {
   ) {
     return Container(
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(39.0),
+        // borderRadius: BorderRadius.circular(39.0),
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.0),
-              boxShadow: [
-                BoxShadow(color: Colors.black, spreadRadius: 3.0, blurRadius: 7)
-              ],
-              color: Colors.green[400]),
+            // borderRadius: BorderRadius.circular(30.0),
+            color: Colors.white,
+            border: Border.all(
+              // width: 1,
+              color: ewawegrey,
+            ),
+            // boxShadow: [
+            //   // BoxShadow(color: Colors.black, spreadRadius: 3.0, blurRadius: 7)
+            // ],
+            // color: Colors.green[400],
+          ),
           child: Material(
             color: Colors.transparent,
             child: InkWell(
@@ -191,11 +199,11 @@ class _DashScreenState extends State<DashboardScreen> {
                     Text(title1,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
-                            fontSize: 15, color: Colors.white)),
+                            fontSize: 15, color: ewawegrey)),
                     Text(title2,
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                            fontSize: 10, color: Colors.white))
+                        style:
+                            GoogleFonts.poppins(fontSize: 10, color: ewawegrey))
                   ],
                 ),
               ),
