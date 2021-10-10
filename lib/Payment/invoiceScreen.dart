@@ -16,8 +16,16 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        elevation: 0.0,
+        centerTitle: true,
+        title: Text(
+          'Invoice',
+          style: GoogleFonts.poppins(
+              fontWeight: FontWeight.bold, color: Colors.black),
+        ),
       ),
       body: Container(
+        padding: EdgeInsets.only(top: 12),
         child: Column(
           children: [
             Row(
@@ -38,7 +46,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               ],
             ),
             SizedBox(
-              height: 40,
+              height: 50,
             ),
             _description('PMS', '1', '100,000Rwf'),
             SizedBox(

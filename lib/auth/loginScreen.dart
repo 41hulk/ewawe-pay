@@ -1,5 +1,6 @@
 import 'package:ewawepay/auth/signUpScreen.dart';
 import 'package:ewawepay/dashboard/dash.dart';
+import 'package:ewawepay/dashboard/landDashScreen.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -78,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
           // Navigator.of(context).pushNamed(HomePage.tag);
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                  builder: (BuildContext context) => DashboardScreen()),
+                  builder: (BuildContext context) => LandDashboardScreen()),
               (Route<dynamic> route) => false);
         },
         padding: EdgeInsets.all(12),

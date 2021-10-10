@@ -86,7 +86,7 @@ class _DashScreenState extends State<DashboardScreen> {
             // ),
 
             child: GridView.count(
-              // physics: NeverScrollableScrollPhysics(),
+              physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               childAspectRatio: 1,
               crossAxisSpacing: 0,
