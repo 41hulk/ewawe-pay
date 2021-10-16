@@ -1,6 +1,6 @@
-import 'package:ewawepay/auth/signUpScreen.dart';
-import 'package:ewawepay/dashboard/dash.dart';
 import 'package:ewawepay/utils/colors.dart';
+import 'package:ewawepay/views/auth/signUpScreen.dart';
+import 'package:ewawepay/views/dashboard/dash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';

@@ -13,36 +13,45 @@ class _UserProfilecreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: ewawegrey,
+        backgroundColor: Colors.white,
         elevation: 0.0,
         centerTitle: true,
         title: Text(
           'Profile',
-          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+          style: GoogleFonts.poppins(
+              fontWeight: FontWeight.bold, color: Colors.black),
         ),
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Avatar(
-                    name: 'Ntare Guy',
-                    placeholderColors: [Colors.white],
-                    backgroundColor: Colors.black,
-                    textStyle:
-                        GoogleFonts.poppins(color: Colors.black, fontSize: 32)),
-                _infocard('Name:', 'Ntare Guy'),
-                _infocard('TenantID:', 'EWAWE-G342'),
-                _infocard('Building:', 'M&M Building'),
-                _infocard('Floor:', '2nd Floor'),
-                SizedBox(height: 30),
-                _logout()
-              ],
-            ),
+        child: Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Container(
+                child: Avatar(
+                  name: 'Ntare Guy',
+                  placeholderColors: [ewawegreen],
+                  backgroundColor: Colors.black,
+                  textStyle:
+                      GoogleFonts.poppins(color: Colors.black, fontSize: 32),
+                ),
+              ),
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _infocard('Name:', 'Ntare Guy'),
+                    _infocard('TenantID:', 'EWAWE-G342'),
+                    _infocard('Building:', 'M&M Building'),
+                    _infocard('Floor:', '2nd Floor'),
+                    SizedBox(height: 30),
+                    _logout()
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -95,32 +104,21 @@ class _UserProfilecreenState extends State<UserProfileScreen> {
             color: Colors.white24,
           ),
           color: Colors.white),
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                label,
-                style: GoogleFonts.poppins(
-                    fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-            ],
+          Text(
+            label,
+            style: GoogleFonts.poppins(
+                fontSize: 13, fontWeight: FontWeight.bold, color: ewawegreen),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                info,
-                style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                    color: ewawegreen),
-              ),
-            ],
+          Text(
+            info,
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+            ),
           ),
         ],
       ),

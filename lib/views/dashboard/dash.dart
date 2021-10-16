@@ -1,8 +1,8 @@
-import 'package:ewawepay/Payment/payScreen.dart';
-import 'package:ewawepay/Payment/paymentHistoryScreen.dart';
-import 'package:ewawepay/Profile/profileScreen.dart';
-import 'package:ewawepay/dashboard/error.dart';
 import 'package:ewawepay/utils/colors.dart';
+import 'package:ewawepay/views/Payment/payScreen.dart';
+import 'package:ewawepay/views/Payment/paymentHistoryScreen.dart';
+import 'package:ewawepay/views/Profile/profileScreen.dart';
+import 'package:ewawepay/views/dashboard/error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -84,6 +84,7 @@ class _DashScreenState extends State<DashboardScreen> {
             //   right: 30,
             //   top: 20,
             // ),
+
             child: GridView.count(
               physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
@@ -132,19 +133,6 @@ class _DashScreenState extends State<DashboardScreen> {
           )
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //     onPressed: () {
-      //       Navigator.push(
-      //         context,
-      //         MaterialPageRoute(builder: (context) {
-      //           return PayScreen();
-      //         }),
-      //       );
-      //     },
-      //     backgroundColor: ewawegreen,
-      //     child: Icon(Icons.payments)),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // bottomNavigationBar: BottomBar(),
     );
   }
 
@@ -155,58 +143,51 @@ class _DashScreenState extends State<DashboardScreen> {
     String imgPath,
   ) {
     return Container(
-      child: ClipRRect(
-        // borderRadius: BorderRadius.circular(39.0),
-        child: Container(
-          decoration: BoxDecoration(
-            // borderRadius: BorderRadius.circular(30.0),
-            color: Colors.white,
-            border: Border.all(
-              // width: 1,
-              color: ewawegrey,
-            ),
-            // boxShadow: [
-            //   // BoxShadow(color: Colors.black, spreadRadius: 3.0, blurRadius: 7)
-            // ],
-            // color: Colors.green[400],
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => screen,
-                  ),
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: <Widget>[
-                    Spacer(),
-                    Hero(
-                        tag: imgPath,
-                        child: Container(
-                            height: 65.0,
-                            width: 65.0,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(imgPath),
-                                    fit: BoxFit.contain)))),
-                    Spacer(),
-                    Text(title1,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                            fontSize: 15, color: ewawegrey)),
-                    Text(title2,
-                        textAlign: TextAlign.center,
-                        style:
-                            GoogleFonts.poppins(fontSize: 10, color: ewawegrey))
-                  ],
-                ),
+      decoration: BoxDecoration(
+        // borderRadius: BorderRadius.circular(30.0),
+        color: Colors.white,
+        border: Border.all(
+          // width: 1,
+          color: Colors.grey.shade200,
+        ),
+        // boxShadow: [
+        //   // BoxShadow(color: Colors.black, spreadRadius: 3.0, blurRadius: 7)
+        // ],
+        // color: Colors.green[400],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => screen,
               ),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(35.0),
+            child: Column(
+              children: <Widget>[
+                Spacer(),
+                Hero(
+                    tag: imgPath,
+                    child: Container(
+                        height: 50.0,
+                        width: 50.0,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(imgPath),
+                                fit: BoxFit.contain)))),
+                Spacer(),
+                Text(title1,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(fontSize: 15, color: ewawegrey)),
+                Text(title2,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(fontSize: 10, color: ewawegrey))
+              ],
             ),
           ),
         ),

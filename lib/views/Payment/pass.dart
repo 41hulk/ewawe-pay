@@ -1,4 +1,5 @@
 import 'package:ewawepay/utils/colors.dart';
+import 'package:ewawepay/views/dashboard/dash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,6 +58,29 @@ class _PassscreenState extends State<PassScreen> {
                       fontSize: 15,
                       fontWeight: FontWeight.normal)),
             ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 19.0),
+              child: RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                onPressed: () {
+                  // Navigator.of(context).pushNamed(HomePage.tag);
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => DashboardScreen(),
+                      ),
+                      (Route<dynamic> route) => false);
+                },
+                padding: EdgeInsets.all(12),
+                color: ewawegrey,
+                child: Text('Done',
+                    style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500)),
+              ),
+            )
           ],
         ),
       ),

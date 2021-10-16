@@ -1,4 +1,6 @@
 import 'package:ewawepay/utils/colors.dart';
+import 'package:ewawepay/views/Payment/invoiceScreen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -58,46 +60,58 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Color(0xFFE0E0E0))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: Material(
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => InvoiceScreen(),
+              ),
+            );
+          },
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('M&M',
-                  style: GoogleFonts.poppins(
-                      fontSize: 15, fontWeight: FontWeight.bold)),
-              Text(
-                'January to February',
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w300,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('M&M',
+                      style: GoogleFonts.poppins(
+                          fontSize: 15, fontWeight: FontWeight.bold)),
+                  Text(
+                    'January to February',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  Text(
+                    'EWAWE-G56345',
+                    style: GoogleFonts.poppins(
+                        fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                ],
               ),
-              SizedBox(height: 12),
-              Text(
-                'EWAWE-G56345',
-                style: GoogleFonts.poppins(
-                    fontSize: 14, fontWeight: FontWeight.w500),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '120,000 RWF',
+                    style: GoogleFonts.poppins(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                  ),
+                  Text('Jun 21, 2021'),
+                ],
               ),
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '120,000 RWF',
-                style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue),
-              ),
-              Text('Jun 21, 2021'),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

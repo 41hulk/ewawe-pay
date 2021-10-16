@@ -1,6 +1,6 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
-import 'package:ewawepay/Payment/pass.dart';
 import 'package:ewawepay/utils/colors.dart';
+import 'package:ewawepay/views/Payment/pass.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -387,6 +387,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       roundLoadingShape: true,
                       width: 100,
                       onTap: (startLoading, stopLoading, btnState) async {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => PassScreen(),
+                          ),
+                        );
                         // if (btnState == ButtonState.Idle) {
                         //   startLoading();
                         //   var add = await addTenant();
