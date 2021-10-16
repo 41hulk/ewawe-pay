@@ -387,6 +387,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       roundLoadingShape: true,
                       width: 100,
                       onTap: (startLoading, stopLoading, btnState) async {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => PassScreen(),
+                          ),
+                        );
                         // if (btnState == ButtonState.Idle) {
                         //   startLoading();
                         //   var add = await addTenant();

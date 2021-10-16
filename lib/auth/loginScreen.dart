@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
           // Navigator.of(context).pushNamed(HomePage.tag);
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                  builder: (BuildContext context) => LandDashboardScreen()),
+                  builder: (BuildContext context) => DashboardScreen()),
               (Route<dynamic> route) => false);
         },
         padding: EdgeInsets.all(12),
