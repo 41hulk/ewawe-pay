@@ -1,6 +1,6 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
-import 'package:ewawepay/Payment/pass.dart';
 import 'package:ewawepay/utils/colors.dart';
+import 'package:ewawepay/views/Payment/pass.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

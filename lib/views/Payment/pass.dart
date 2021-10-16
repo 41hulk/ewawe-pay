@@ -1,5 +1,5 @@
-import 'package:ewawepay/dashboard/dash.dart';
 import 'package:ewawepay/utils/colors.dart';
+import 'package:ewawepay/views/dashboard/dash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

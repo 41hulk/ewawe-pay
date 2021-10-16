@@ -1,7 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:ewawepay/auth/loginScreen.dart';
-import 'package:ewawepay/dashboard/landDashScreen.dart';
 import 'package:ewawepay/utils/colors.dart';
+import 'package:ewawepay/views/auth/loginScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

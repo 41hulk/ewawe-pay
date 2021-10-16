@@ -1,8 +1,8 @@
-import 'package:ewawepay/Payment/payScreen.dart';
-import 'package:ewawepay/Payment/paymentHistoryScreen.dart';
-import 'package:ewawepay/Profile/profileScreen.dart';
-import 'package:ewawepay/dashboard/error.dart';
 import 'package:ewawepay/utils/colors.dart';
+import 'package:ewawepay/views/Payment/payScreen.dart';
+import 'package:ewawepay/views/Payment/paymentHistoryScreen.dart';
+import 'package:ewawepay/views/Profile/profileScreen.dart';
+import 'package:ewawepay/views/dashboard/error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
