@@ -1,4 +1,3 @@
-import 'package:ewawepay/main.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:ewawepay/utils/authService.dart';
 import 'package:ewawepay/utils/colors.dart';
+import 'package:ewawepay/views/auth/loginScreen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:avatars/avatars.dart';
 
@@ -8,6 +14,26 @@ class UserProfileScreen extends StatefulWidget {
   @override
   _UserProfilecreenState createState() => _UserProfilecreenState();
 }
+
+var dio = Dio();
+
+// Future<dynamic> logOut() async {
+//   var token = getToken();
+//   var response = await http.post(Uri.parse("$apiUrl/api/logout"),
+//       headers: {'auth': "Bearer $token"});
+//   var dataJson = json.decode(response.body);
+//   if (dataJson.containsKey('status')) {
+//     if (dataJson['status'] == 'success') {
+//       Navigator.push(
+//         context,
+//         CupertinoPageRoute(
+//           builder: (context) => UserProfileScreen(),
+//         ),
+//       );
+//     }
+//   }
+//   print(dataJson);
+// }
 
 class _UserProfilecreenState extends State<UserProfileScreen> {
   @override
@@ -133,7 +159,30 @@ class _UserProfilecreenState extends State<UserProfileScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         backgroundColor: Colors.green[200],
       ),
-      onPressed: () {},
+      onPressed: () async {
+        String? token = await getToken();
+
+        var response = await http.post(
+          Uri.parse("$apiUrl/api/v1/logout"),
+          headers: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer $token"
+          },
+        );
+
+        var dataJson = json.decode(response.body);
+        print(dataJson);
+
+        if (dataJson.containsKey('status')) {
+          if (dataJson['status'] == 'success') {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (BuildContext context) => LoginScreen()),
+                (Route<dynamic> route) => false);
+          }
+        }
+      },
       child: Row(
         children: [
           SizedBox(width: 20),

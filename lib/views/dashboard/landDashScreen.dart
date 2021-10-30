@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:avatars/avatars.dart';
+import 'package:ewawepay/utils/authService.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:ewawepay/views/Payment/invoiceScreen.dart';
 import 'package:ewawepay/views/Profile/profileScreen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_navigation/scroll_navigation.dart';
 
@@ -29,7 +34,9 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.notifications_none, color: Colors.black),
-              onPressed: () {},
+              onPressed: () {
+                getProperty();
+              },
             ),
             IconButton(
               icon: Icon(Icons.account_circle, color: Colors.black),
@@ -48,7 +55,7 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
           padding: EdgeInsets.all(15),
           children: [
             Container(
-              padding: EdgeInsets.only(left: 13.0, bottom: 12),
+              padding: EdgeInsets.only(left: 7.0, bottom: 12),
               margin: EdgeInsets.only(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,6 +78,7 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                       ),
                     ],
                   ),
+                  _accountInfo(),
                   SizedBox(
                     height: 30,
                   ),
@@ -91,22 +99,41 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                 childAspectRatio: 1,
                 mainAxisSpacing: 9,
                 children: <Widget>[
-                  _buildCard(),
-                  _buildCard(),
-                  _buildCard(),
-                  _buildCard(),
-                  _buildCard(),
-                  _buildCard(),
-                  _buildCard(),
+                  _propertyCard(),
                 ],
               ),
             ),
+            _houseInfo(),
             _cardInfo()
           ],
         ));
   }
 
-  Widget _buildCard() {
+  Future<dynamic> getProperty() async {
+    String? token = await getToken();
+    print(token);
+    var response = await http.get(
+      Uri.parse("$apiUrl/api/v1/all/property/listed"),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        "Authorization": "Bearer $token"
+      },
+    );
+
+    var dataJson = json.decode(response.body);
+    print(dataJson);
+
+    // if (dataJson.containsKey('status')) {
+    //   if (dataJson['status'] == 'success') {
+    //     Navigator.of(context).pushAndRemoveUntil(
+    //         MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+    //         (Route<dynamic> route) => false);
+    //   }
+    // }
+  }
+
+  Widget _propertyCard() {
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
@@ -200,7 +227,6 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
 
   Widget _transactionCart() {
     return Container(
-      padding: EdgeInsets.all(5.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Color(0xFFE0E0E0))),
@@ -308,6 +334,141 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _accountInfo() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.only(top: 16.0),
+      decoration: BoxDecoration(
+          color: Colors.grey.shade300,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Color(0xFFE0E0E0))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            children: [
+              Text('Paid Invoice',
+                  style: GoogleFonts.poppins(
+                      fontSize: 15, fontWeight: FontWeight.bold)),
+              Row(
+                children: [
+                  FaIcon(
+                    FontAwesomeIcons.caretUp,
+                    color: Colors.green,
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    '120,000 RWF',
+                    style: GoogleFonts.poppins(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue.shade400),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Text('Unpaid Invoice',
+                  style: GoogleFonts.poppins(
+                      fontSize: 15, fontWeight: FontWeight.bold)),
+              Row(
+                children: [
+                  FaIcon(
+                    FontAwesomeIcons.caretDown,
+                    color: Colors.redAccent,
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Text('120,000 RWF',
+                      style: GoogleFonts.poppins(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red.shade400,
+                      )),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _houseInfo() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.only(top: 16.0),
+      // decoration: BoxDecoration(
+      //      color: Colors.grey.shade300,
+      //     borderRadius: BorderRadius.circular(10),
+      //     border: Border.all(color: Color(0xFFE0E0E0))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Column(
+            children: [
+              Text(
+                'M&M buildings',
+                style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: ewawegreen),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Text('Total Tenants',
+                  style: GoogleFonts.poppins(
+                      fontSize: 12, fontWeight: FontWeight.w600)),
+              Row(
+                children: [
+                  FaIcon(FontAwesomeIcons.user, size: 17, color: ewawegreen),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text('144',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.lightBlue,
+                      )),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Text('Available Space',
+                  style: GoogleFonts.poppins(
+                      fontSize: 12, fontWeight: FontWeight.w600)),
+              Row(
+                children: [
+                  FaIcon(FontAwesomeIcons.building,
+                      size: 15, color: ewawegreen),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text('80',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.lightBlue,
+                      )),
+                ],
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
