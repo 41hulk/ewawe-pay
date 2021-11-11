@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:avatars/avatars.dart';
-import 'package:ewawepay/utils/authService.dart';
+import 'package:ewawepay/services/properties.dart';
+
 import 'package:ewawepay/utils/colors.dart';
 import 'package:ewawepay/views/Payment/invoiceScreen.dart';
 import 'package:ewawepay/views/Profile/profileScreen.dart';
@@ -34,9 +35,7 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.notifications_none, color: Colors.black),
-              onPressed: () {
-                getProperty();
-              },
+              onPressed: () {},
             ),
             IconButton(
               icon: Icon(Icons.account_circle, color: Colors.black),
@@ -93,15 +92,32 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
             Container(
               height: 150,
               width: MediaQuery.of(context).size.width,
-              child: GridView.count(
-                scrollDirection: Axis.horizontal,
-                crossAxisCount: 1,
-                childAspectRatio: 1,
-                mainAxisSpacing: 9,
-                children: <Widget>[
-                  _propertyCard(),
-                ],
-              ),
+              child: FutureBuilder(
+                  future: getProperty(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error'),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      return GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 1,
+                                  mainAxisSpacing: 9,
+                                  crossAxisSpacing: 10),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, int index) {
+                            return Container();
+                            // _propertyCard(
+                            //     snapshot.data[index]["profile"]);
+                          });
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }),
             ),
             _houseInfo(),
             _cardInfo()
@@ -109,31 +125,7 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
         ));
   }
 
-  Future<dynamic> getProperty() async {
-    String? token = await getToken();
-    print(token);
-    var response = await http.get(
-      Uri.parse("$apiUrl/api/v1/all/property/listed"),
-      headers: {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-        "Authorization": "Bearer $token"
-      },
-    );
-
-    var dataJson = json.decode(response.body);
-    print(dataJson);
-
-    // if (dataJson.containsKey('status')) {
-    //   if (dataJson['status'] == 'success') {
-    //     Navigator.of(context).pushAndRemoveUntil(
-    //         MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
-    //         (Route<dynamic> route) => false);
-    //   }
-    // }
-  }
-
-  Widget _propertyCard() {
+  Widget _propertyCard(img) {
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
@@ -143,23 +135,24 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
         alignment: Alignment.center,
         children: [
           Ink.image(
-            image: NetworkImage(
-              'https://www.newtimes.co.rw/sites/default/files/main/articles/2018/03/08/15204611531.jpg',
-            ),
+            image: AssetImage(img),
+            // NetworkImage(
+            //   img,
+            // ),
             child: InkWell(
               onTap: () {},
             ),
             height: 240,
             fit: BoxFit.cover,
           ),
-          Text(
-            'M&M buildings',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontSize: 15,
-            ),
-          ),
+          // Text(
+          //   propertyname,
+          //   style: TextStyle(
+          //     fontWeight: FontWeight.bold,
+          //     color: Colors.white,
+          //     fontSize: 15,
+          //   ),
+          // ),
         ],
       ),
     );
@@ -167,7 +160,7 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
 
   Widget _cardInfo() {
     return Container(
-      height: 500,
+      height: MediaQuery.of(context).size.width,
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(top: 20),
       child: TitleScrollNavigation(
@@ -181,57 +174,118 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
           "List of Tenants",
           "List of Invoices",
           "List of Contract",
-          "Financial Report",
         ],
         pages: [
           Container(
             padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                _transactionCart(),
-                _transactionCart(),
-                _transactionCart(),
-              ],
-            ),
+            child: FutureBuilder(
+                future: getTenants(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error'),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, index) {
+                          return Column(
+                            children: [
+                              _transactionCartTenant(
+                                  snapshot.data[index]["tenant_name"],
+                                  snapshot.data[index]["floor_name"],
+                                  snapshot.data[index]["building_name"],
+                                  snapshot.data[index]["total_rent"],
+                                  snapshot.data[index]["tenant_email"])
+                            ],
+                          );
+                        });
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }),
           ),
           Container(
             padding: EdgeInsets.all(10),
-            child: Column(
-              children: [_invoiceCard(), _invoiceCard(), _invoiceCard()],
-            ),
+            child: FutureBuilder(
+                future: getInvoice(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error'),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, index) {
+                          return Column(
+                            children: [
+                              _invoiceCard(
+                                snapshot.data[index]['tenant_name'],
+                                snapshot.data[index]['invoice_period'],
+                                snapshot.data[index]['invoice_status'],
+                                snapshot.data[index]['invoice_amount'],
+                                snapshot.data[index]['invoice_from'],
+                                snapshot.data[index]['invoice_to'],
+                              )
+                            ],
+                          );
+                        });
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }),
           ),
           Container(
             padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                _transactionCart(),
-                _transactionCart(),
-                _transactionCart(),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                _transactionCart(),
-                _transactionCart(),
-                _transactionCart(),
-              ],
-            ),
+            child: FutureBuilder(
+                future: getContract(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error'),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, index) {
+                          return Column(
+                            children: [
+                              _cardContract(
+                                snapshot.data[index]['tenant_name'],
+                                snapshot.data[index]['building_name'],
+                                snapshot.data[index]['currency'],
+                                snapshot.data[index]['tenant_email'],
+                                snapshot.data[index]['contract_status'],
+                                snapshot.data[index]['signed_date'],
+                                snapshot.data[index]['end_date'],
+                              )
+                            ],
+                          );
+                        });
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }),
           ),
         ],
       ),
     );
   }
 
-  Widget _transactionCart() {
+  Widget _transactionCartTenant(name, floor, building, amount, email) {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Color(0xFFE0E0E0))),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -239,35 +293,38 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
             // padding: EdgeInsets.only(right: 50),
 
             child: Avatar(
-              name: 'T&T group',
+              name: name,
               placeholderColors: [ewawegreen],
               backgroundColor: ewawegreen,
-              textStyle: GoogleFonts.poppins(color: Colors.white, fontSize: 32),
+              textStyle: GoogleFonts.poppins(color: Colors.white, fontSize: 26),
             ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('T&T Group',
+              Text(name,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.poppins(
                       fontSize: 15, fontWeight: FontWeight.bold)),
               Text(
-                'East Wing, 7th Floor',
+                '$floor Floor, $building',
+                overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.w300,
                 ),
               ),
               Text(
-                'Amount: 200,000RWF',
+                'Amount: $amount',
+                overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.poppins(
                     fontSize: 14, fontWeight: FontWeight.w500),
               ),
               Text(
-                'Contact: info@TGroup.com',
+                'Contact: $email',
                 style: GoogleFonts.poppins(
-                    fontSize: 14, fontWeight: FontWeight.w500),
+                    fontSize: 12, fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -276,7 +333,7 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
     );
   }
 
-  Widget _invoiceCard() {
+  Widget _invoiceCard(name, period, status, amount, from, to) {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -285,12 +342,12 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
       child: Material(
         child: InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (context) => InvoiceScreen(),
-              ),
-            );
+            // Navigator.push(
+            //   context,
+            //   CupertinoPageRoute(
+            //     builder: (context) => InvoiceScreen(),
+            //   ),
+            // );
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -299,11 +356,11 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('M&M',
+                  Text(name,
                       style: GoogleFonts.poppins(
                           fontSize: 15, fontWeight: FontWeight.bold)),
                   Text(
-                    'January to February',
+                    period,
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.w300,
@@ -311,7 +368,7 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                   ),
                   SizedBox(height: 12),
                   Text(
-                    'EWAWE-G56345',
+                    status,
                     style: GoogleFonts.poppins(
                         fontSize: 14, fontWeight: FontWeight.w500),
                   ),
@@ -322,13 +379,84 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '120,000 RWF',
+                    amount,
                     style: GoogleFonts.poppins(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Colors.blue),
                   ),
-                  Text('Jun 21, 2021'),
+                  Text('From: $from'),
+                  Text('to: $to'),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _cardContract(name, building, amount, email, status, from, to) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Color(0xFFE0E0E0))),
+      child: Material(
+        child: InkWell(
+          onTap: () {
+            // Navigator.push(
+            //   context,
+            //   CupertinoPageRoute(
+            //     builder: (context) => InvoiceScreen(),
+            //   ),
+            // );
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(name,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.poppins(
+                          fontSize: 15, fontWeight: FontWeight.bold)),
+                  Text(
+                    '$building',
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                  Text(
+                    '$amount',
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                        fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    '$email',
+                    style: GoogleFonts.poppins(
+                        fontSize: 11, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Status: $status',
+                    style: GoogleFonts.poppins(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                  ),
+                  Text('From: $from'),
+                  Text('to: $to'),
                 ],
               ),
             ],

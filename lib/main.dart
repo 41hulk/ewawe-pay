@@ -3,7 +3,6 @@ import 'package:ewawepay/utils/colors.dart';
 import 'package:ewawepay/views/auth/loginScreen.dart';
 import 'package:ewawepay/views/dashboard/landDashScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   runApp(

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:dio/dio.dart';
+
 import 'package:ewawepay/utils/authService.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:ewawepay/views/auth/loginScreen.dart';
@@ -14,8 +14,6 @@ class UserProfileScreen extends StatefulWidget {
   @override
   _UserProfilecreenState createState() => _UserProfilecreenState();
 }
-
-var dio = Dio();
 
 // Future<dynamic> logOut() async {
 //   var token = getToken();
