@@ -1,17 +1,17 @@
-import 'dart:convert';
-
 import 'package:avatars/avatars.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:ewawepay/services/properties.dart';
-
+import 'package:ewawepay/utils/authService.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:ewawepay/views/Payment/invoiceScreen.dart';
 import 'package:ewawepay/views/Profile/profileScreen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:scroll_navigation/scroll_navigation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LandDashboardScreen extends StatefulWidget {
   @override
@@ -19,6 +19,20 @@ class LandDashboardScreen extends StatefulWidget {
 }
 
 class _LandDashScreenState extends State<LandDashboardScreen> {
+  String user = '';
+  @override
+  void initState() {
+    super.initState();
+    nameUser();
+  }
+
+  void nameUser() async {
+    final SharedPreferences storage = await SharedPreferences.getInstance();
+    setState(() {
+      user = storage.getString('name')!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,14 +80,14 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                         style: GoogleFonts.poppins(
                             color: Colors.black,
                             fontSize: 25,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        'Nicole!',
+                        "$user",
                         style: GoogleFonts.poppins(
                             color: ewawegreen,
                             fontSize: 25,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -101,25 +115,25 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                       );
                     }
                     if (snapshot.hasData) {
-                      return GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 1,
-                                  mainAxisSpacing: 9,
-                                  crossAxisSpacing: 10),
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, int index) {
-                            return Container();
-                            // _propertyCard(
-                            //     snapshot.data[index]["profile"]);
-                          });
+                      return GridView.count(
+                        scrollDirection: Axis.horizontal,
+                        crossAxisCount: 1,
+                        childAspectRatio: 1,
+                        mainAxisSpacing: 9,
+                        children: List.generate(snapshot.data.length, (index) {
+                          return _propertyCard(
+                              snapshot.data['listProperty'][index]['profile']);
+                        }),
+                      );
                     }
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        color: ewawegreen,
+                      ),
                     );
                   }),
             ),
-            _houseInfo(),
+            // _houseInfo(),
             _cardInfo()
           ],
         ));
@@ -134,19 +148,16 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Ink.image(
-            image: AssetImage(img),
-            // NetworkImage(
-            //   img,
-            // ),
-            child: InkWell(
-              onTap: () {},
-            ),
+          Image.network(
+            img,
+            // "https://www.newtimes.co.rw/sites/default/files/main/articles/2018/03/08/15204611531.jpg",
+
             height: 240,
             fit: BoxFit.cover,
           ),
+
           // Text(
-          //   propertyname,
+          //   'MAKUZA',
           //   style: TextStyle(
           //     fontWeight: FontWeight.bold,
           //     color: Colors.white,
@@ -203,7 +214,9 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                         });
                   }
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: ewawegreen,
+                    ),
                   );
                 }),
           ),
@@ -223,20 +236,35 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                         itemBuilder: (BuildContext context, index) {
                           return Column(
                             children: [
-                              _invoiceCard(
-                                snapshot.data[index]['tenant_name'],
-                                snapshot.data[index]['invoice_period'],
-                                snapshot.data[index]['invoice_status'],
-                                snapshot.data[index]['invoice_amount'],
-                                snapshot.data[index]['invoice_from'],
-                                snapshot.data[index]['invoice_to'],
+                              InkWell(
+                                onTap: () async {
+                                  await storeInvoicedata(
+                                      snapshot.data[index]['id']);
+                                  Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) => InvoiceScreen(),
+                                    ),
+                                  );
+                                },
+                                child: _invoiceCard(
+                                  snapshot.data[index]['tenant_name'],
+                                  snapshot.data[index]['invoice_period'],
+                                  snapshot.data[index]['invoice_status'],
+                                  snapshot.data[index]['invoice_amount'],
+                                  snapshot.data[index]['invoice_from'],
+                                  snapshot.data[index]['invoice_to'],
+                                  snapshot.data[index]['id'],
+                                ),
                               )
                             ],
                           );
                         });
                   }
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: ewawegreen,
+                    ),
                   );
                 }),
           ),
@@ -270,7 +298,9 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                         });
                   }
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: ewawegreen,
+                    ),
                   );
                 }),
           ),
@@ -333,7 +363,7 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
     );
   }
 
-  Widget _invoiceCard(name, period, status, amount, from, to) {
+  Widget _invoiceCard(name, period, status, amount, from, to, invId) {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -341,14 +371,15 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
           border: Border.all(color: Color(0xFFE0E0E0))),
       child: Material(
         child: InkWell(
-          onTap: () {
-            // Navigator.push(
-            //   context,
-            //   CupertinoPageRoute(
-            //     builder: (context) => InvoiceScreen(),
-            //   ),
-            // );
-          },
+          // onTap: () async {
+          //   await storeInvoicedata(invId);
+          //   Navigator.push(
+          //     context,
+          //     CupertinoPageRoute(
+          //       builder: (context) => InvoiceScreen(),
+          //     ),
+          //   );
+          // },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -474,60 +505,123 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
           color: Colors.grey.shade300,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Color(0xFFE0E0E0))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            children: [
-              Text('Paid Invoice',
-                  style: GoogleFonts.poppins(
-                      fontSize: 15, fontWeight: FontWeight.bold)),
-              Row(
+      child: FutureBuilder(
+          future: getInvoiceReport(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('Error'),
+              );
+            }
+            if (snapshot.hasData) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  FaIcon(
-                    FontAwesomeIcons.caretUp,
-                    color: Colors.green,
+                  Column(
+                    children: [
+                      Text('Paid Invoice in RWF',
+                          style: GoogleFonts.poppins(
+                              fontSize: 13, fontWeight: FontWeight.w500)),
+                      Row(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.caretUp,
+                            color: Colors.green,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            "${snapshot.data['data']['invoice_paid_rwf']}",
+                            style: GoogleFonts.poppins(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue.shade400),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text('Paid Invoice in USD',
+                          style: GoogleFonts.poppins(
+                              fontSize: 13, fontWeight: FontWeight.w500)),
+                      Row(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.caretUp,
+                            color: Colors.green,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            "${snapshot.data['data']['invoice_paid_usd']}",
+                            style: GoogleFonts.poppins(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue.shade400),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Text(
-                    '120,000 RWF',
-                    style: GoogleFonts.poppins(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue.shade400),
+                  Column(
+                    children: [
+                      Text('Unpaid Invoice in RWF',
+                          style: GoogleFonts.poppins(
+                              fontSize: 13, fontWeight: FontWeight.w500)),
+                      Row(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.caretDown,
+                            color: Colors.redAccent,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text("${snapshot.data['data']['invoice_unpaid_rwf']}",
+                              style: GoogleFonts.poppins(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red.shade400,
+                              )),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text('Unpaid Invoice in USD',
+                          style: GoogleFonts.poppins(
+                              fontSize: 13, fontWeight: FontWeight.w500)),
+                      Row(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.caretDown,
+                            color: Colors.redAccent,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text("${snapshot.data['data']['invoice_unpaid_usd']}",
+                              style: GoogleFonts.poppins(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red.shade400,
+                              )),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(
+                color: ewawegreen,
               ),
-            ],
-          ),
-          Column(
-            children: [
-              Text('Unpaid Invoice',
-                  style: GoogleFonts.poppins(
-                      fontSize: 15, fontWeight: FontWeight.bold)),
-              Row(
-                children: [
-                  FaIcon(
-                    FontAwesomeIcons.caretDown,
-                    color: Colors.redAccent,
-                  ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Text('120,000 RWF',
-                      style: GoogleFonts.poppins(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red.shade400,
-                      )),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
+            );
+          }),
     );
   }
 
@@ -545,7 +639,7 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
           Column(
             children: [
               Text(
-                'M&M buildings',
+                'CHIC',
                 style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -564,7 +658,7 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                   SizedBox(
                     width: 5,
                   ),
-                  Text('144',
+                  Text('80',
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -586,7 +680,7 @@ class _LandDashScreenState extends State<LandDashboardScreen> {
                   SizedBox(
                     width: 5,
                   ),
-                  Text('80',
+                  Text('23 Sqm',
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,

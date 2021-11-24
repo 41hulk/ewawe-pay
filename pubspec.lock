@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  card_swiper:
+    dependency: "direct main"
+    description:
+      name: card_swiper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   characters:
     dependency: transitive
     description:
@@ -212,6 +219,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  loading_indicator:
+    dependency: "direct main"
+    description:
+      name: loading_indicator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.2"
   logger:
     dependency: "direct main"
     description:

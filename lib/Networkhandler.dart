@@ -42,6 +42,24 @@ class NetworkHandler {
     return response;
   }
 
+  Future delete(String url) async {
+    String? token = await getToken();
+
+    url = formater(url);
+    // /user/register
+    var response = await http.delete(
+      Uri.parse(url),
+      headers: {"Authorization": "Bearer $token"},
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // log.i(response.body);
+
+      return json.decode(response.body);
+    }
+    // log.i(response.body);
+    // log.i(response.statusCode);
+  }
+
   Future<http.Response> patch(String url, Map<String, String> body) async {
     String? token = await getToken();
     url = formater(url);

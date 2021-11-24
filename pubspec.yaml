@@ -41,6 +41,8 @@ dependencies:
   http: ^0.13.4
   top_snackbar_flutter: ^1.0.1
   logger: ^1.1.0
+  loading_indicator: ^3.0.2
+  card_swiper: ^1.0.4
 
 dev_dependencies:
   flutter_test:

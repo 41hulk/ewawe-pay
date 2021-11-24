@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:ewawepay/utils/authService.dart';
 import 'package:ewawepay/utils/colors.dart';
 import 'package:ewawepay/views/auth/loginScreen.dart';
@@ -9,31 +8,32 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:avatars/avatars.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfileScreen extends StatefulWidget {
   @override
   _UserProfilecreenState createState() => _UserProfilecreenState();
 }
 
-// Future<dynamic> logOut() async {
-//   var token = getToken();
-//   var response = await http.post(Uri.parse("$apiUrl/api/logout"),
-//       headers: {'auth': "Bearer $token"});
-//   var dataJson = json.decode(response.body);
-//   if (dataJson.containsKey('status')) {
-//     if (dataJson['status'] == 'success') {
-//       Navigator.push(
-//         context,
-//         CupertinoPageRoute(
-//           builder: (context) => UserProfileScreen(),
-//         ),
-//       );
-//     }
-//   }
-//   print(dataJson);
-// }
-
 class _UserProfilecreenState extends State<UserProfileScreen> {
+  int id = 0;
+  String name = '';
+  String email = '';
+  @override
+  void initState() {
+    super.initState();
+    userInfo();
+  }
+
+  void userInfo() async {
+    final SharedPreferences storage = await SharedPreferences.getInstance();
+    setState(() {
+      id = storage.getInt('id')!;
+      name = storage.getString('name')!;
+      email = storage.getString('email')!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +55,7 @@ class _UserProfilecreenState extends State<UserProfileScreen> {
             children: [
               Container(
                 child: Avatar(
-                  name: 'Ntare Guy',
+                  name: 'Demo',
                   placeholderColors: [ewawegreen],
                   backgroundColor: Colors.black,
                   textStyle:
@@ -66,11 +66,10 @@ class _UserProfilecreenState extends State<UserProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _infocard('Name:', 'Ntare Guy'),
-                    _infocard('TenantID:', 'EWAWE-G342'),
-                    _infocard('Building:', 'M&M Building'),
-                    _infocard('Floor:', '2nd Floor'),
-                    SizedBox(height: 30),
+                    _infocard('Name:', '$name'),
+                    _infocard('ID:', '$id'),
+                    _infocard('Email:', '$email'),
+                    SizedBox(height: 40),
                     _logout()
                   ],
                 ),
@@ -78,42 +77,6 @@ class _UserProfilecreenState extends State<UserProfileScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget userAvatar() {
-    return SizedBox(
-      height: 115,
-      width: 115,
-      child: Stack(
-        fit: StackFit.expand,
-        clipBehavior: Clip.none,
-        children: [
-          CircleAvatar(
-            backgroundImage: AssetImage("assets/images/ewawelogo.png"),
-          ),
-          Positioned(
-            right: -16,
-            bottom: 0,
-            child: SizedBox(
-              height: 46,
-              width: 46,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(color: Colors.white),
-                  ),
-                  primary: Colors.white,
-                  backgroundColor: Color(0xFFF5F6F9),
-                ),
-                onPressed: () {},
-                child: Icon(Icons.photo_camera, color: Colors.black),
-              ),
-            ),
-          )
-        ],
       ),
     );
   }
@@ -158,28 +121,11 @@ class _UserProfilecreenState extends State<UserProfileScreen> {
         backgroundColor: Colors.green[200],
       ),
       onPressed: () async {
-        String? token = await getToken();
-
-        var response = await http.post(
-          Uri.parse("$apiUrl/api/v1/logout"),
-          headers: {
-            'Content-type': 'application/json',
-            'Accept': 'application/json',
-            "Authorization": "Bearer $token"
-          },
-        );
-
-        var dataJson = json.decode(response.body);
-        print(dataJson);
-
-        if (dataJson.containsKey('status')) {
-          if (dataJson['status'] == 'success') {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (BuildContext context) => LoginScreen()),
-                (Route<dynamic> route) => false);
-          }
-        }
+        SharedPreferences storage = await SharedPreferences.getInstance();
+        storage.remove('token');
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+            (Route<dynamic> route) => false);
       },
       child: Row(
         children: [
