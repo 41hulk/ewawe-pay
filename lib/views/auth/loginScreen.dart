@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ewawepay/utils/authService.dart';
+import 'package:ewawepay/views/dashboard/dash.dart';
 import 'package:ewawepay/views/dashboard/landDashScreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:ewawepay/utils/colors.dart';
@@ -41,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
           await storeUserData(convertedDatatoJson);
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                  builder: (BuildContext context) => LandDashboardScreen()),
+                  builder: (BuildContext context) => DashboardScreen()),
               (Route<dynamic> route) => false);
         }
         if (convertedDatatoJson['status'] == 'error') {
