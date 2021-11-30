@@ -8,7 +8,10 @@ void main() {
     MyApp(),
   );
 }
+// ignore: todo
+// TODO: Integrate payment API
 
+// FIXME: Invoices Screen fetched from the API
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -21,13 +24,12 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: ewawegreen,
       ),
       home: AnimatedSplashScreen(
-        duration: 3000,
-        splashIconSize: 300,
-        splashTransition: SplashTransition.fadeTransition,
-        backgroundColor: Colors.white,
-        splash: Image.asset('assets/images/ewawelogo.png'),
-        nextScreen: LoginScreen(),
-      ),
+          duration: 3000,
+          splashIconSize: 300,
+          splashTransition: SplashTransition.fadeTransition,
+          backgroundColor: Colors.white,
+          splash: Image.asset('assets/images/ewawelogo.png'),
+          nextScreen: LoginScreen()),
     );
   }
 }
