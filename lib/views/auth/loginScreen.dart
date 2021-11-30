@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
           await storeUserData(convertedDatatoJson);
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                  builder: (BuildContext context) => DashboardScreen()),
+                  builder: (BuildContext context) => LandDashboardScreen()),
               (Route<dynamic> route) => false);
         }
         if (convertedDatatoJson['status'] == 'error') {

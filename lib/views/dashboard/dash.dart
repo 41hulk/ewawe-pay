@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ewawepay/utils/colors.dart';
 import 'package:ewawepay/views/Payment/payScreen.dart';
 import 'package:ewawepay/views/Payment/paymentHistoryScreen.dart';
@@ -6,6 +8,7 @@ import 'package:ewawepay/views/dashboard/error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -13,6 +16,20 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashScreenState extends State<DashboardScreen> {
+  String user = '';
+  @override
+  void initState() {
+    super.initState();
+    nameUser();
+  }
+
+  void nameUser() async {
+    final SharedPreferences storage = await SharedPreferences.getInstance();
+    setState(() {
+      user = storage.getString('name')!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +70,7 @@ class _DashScreenState extends State<DashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Hi, User!',
+                Text('Hi, $user!',
                     style: GoogleFonts.poppins(
                         color: Colors.white,
                         fontSize: 30,
